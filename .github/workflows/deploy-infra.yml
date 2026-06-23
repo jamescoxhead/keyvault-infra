@@ -26,14 +26,26 @@ jobs:
           scope: 'resourceGroup'
           template-file: './infrastructure/main.bicep'
           parameters-file: './infrastructure/prod.bicepparam'
+          resource-group-name: ${{vars.RESOURCE_GROUP_NAME}}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # - name: Login to Azure
-      #   uses: azure/login@v1
-      #   with:
-      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Dry-run Bicep deployment (whatif)
+        uses: azure/bicep-deploy@v2
+        with:
+          type: 'deployment'
+          operation: 'whatIf'
+          scope: 'resourceGroup'
+          template-file: './infrastructure/main.bicep'
+          parameters-file: './infrastructure/prod.bicepparam'
+          resource-group-name: ${{vars.RESOURCE_GROUP_NAME}}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       # - name: Deploy infrastructure using Bicep
       #   uses: azure/bicep-deploy@v2
