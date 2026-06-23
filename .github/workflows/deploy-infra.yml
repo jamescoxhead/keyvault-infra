@@ -47,12 +47,12 @@ jobs:
           resource-group-name: ${{vars.RESOURCE_GROUP_NAME}}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # - name: Deploy infrastructure using Bicep
-      #   uses: azure/bicep-deploy@v2
-      #   with:
-      #     type: 'deployment'
-      #     operation: 'create'
-      #     scope: 'resourceGroup'
-      #     template-file: './infrastructure/main.bicep'
-      #     parameters-file: './infrastructure/prod.bicepparam'
-      #     resource-group-name: ${{vars.RESOURCE_GROUP_NAME}}
+      - name: Deploy infrastructure using Bicep
+        uses: azure/bicep-deploy@v2
+        with:
+          type: 'deployment'
+          operation: 'create'
+          scope: 'resourceGroup'
+          template-file: './infrastructure/main.bicep'
+          parameters-file: './infrastructure/prod.bicepparam'
+          resource-group-name: ${{vars.RESOURCE_GROUP_NAME}}
