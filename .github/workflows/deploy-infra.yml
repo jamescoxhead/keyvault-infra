@@ -26,6 +26,7 @@ jobs:
           scope: 'resourceGroup'
           template-file: './infrastructure/main.bicep'
           parameters-file: './infrastructure/prod.bicepparam'
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       # - name: Login to Azure
       #   uses: azure/login@v1
